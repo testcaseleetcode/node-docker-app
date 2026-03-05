@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy package files and node_modules installed on host
 COPY package*.json ./
 #install required dependencies
-RUN npm install
+RUN npm install || cat /root/.npm/_logs/*debug*
 #COPY node_modules ./node_modules
 
 # Copy rest of the source code
