@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout from GitHub') {
             steps {
                 git branch: 'master',
-                    url: 'https://github.com/laxmi916/node-docker-app.git'
+                    url: 'https://github.com/testcaseleetcode/node-docker-app.git'
             }
         }
 
@@ -19,25 +19,23 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh '''
-                docker build -t node-docker-app:${BUILD_NUMBER} .
-                docker tag node-docker-app:${BUILD_NUMBER} laxmi916/node-docker-app:${BUILD_NUMBER}
+                docker build -t node-docker-app:0.0.1 .
+                docker tag node-docker-app:0.0.1 testcaseleetcode/node-docker-app:0.0.1
                 '''
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                sh 'docker push laxmi916/node-docker-app:${BUILD_NUMBER}'
+                sh 'docker push testcaseleetcode/node-docker-app:0.0.1'
             }
         }
         
         stage('Create container') {
             steps {
-                sh 'docker run -d -p 3000:8080 laxmi916/node-docker-app:${BUILD_NUMBER}'
+                sh 'docker run -d -p 3000:5050 testcaseleetcode/node-docker-app:0.0.1'
             }
         }
-
-
 
     }
 }
